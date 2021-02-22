@@ -1,27 +1,39 @@
 from functions_date import *
 
-
 def uploadFiles():
     print("Feature will be updated soon")
 
-def Yr_revenue():
+def yr_revenue():
     basic_rev = year_rev("basic")
     year_selection(basic_rev)
 
-def Mo_revenue():
+def mo_revenue():
     basic_rev = year_rev("basic")
-    month_selection(basic_rev)
+    mo_selection(basic_rev)
 
-def month_selection(basic_rev):
-    print("we have following year:")
+def mo_selection(basic_rev):
+    print("we have following year to display:")
     for x in basic_rev:
         print(x)
     select_year = input("Which year you want to check? : ")
     if (int(select_year) in basic_rev):
-        get_rev_details(int(select_year))
+        monthly_rev = month_rev(int(select_year), "basic")
+        print(monthly_rev)
+        month_selection(monthly_rev,int(select_year))
     else:
         print("Please enter year number")
-        month_selection(basic_rev)
+        mo_selection(basic_rev)
+
+def month_selection(month_rev,select_year):
+    print("We have following months for year " + str(select_year))
+    for x in month_rev:
+        print(x)
+    select_month = input("Which month you want to check? :")
+    if(int(select_month) in month_rev):
+        month_revenue(int(select_month),select_year)
+    else:
+        print("Please select month")
+        month_selection(month_rev,select_year)
 
 
 def year_selection(basic_rev):
@@ -34,6 +46,10 @@ def year_selection(basic_rev):
     else:
         print("Please enter year number")
         year_selection(basic_rev)
+
+def total_revenue():
+    get_total_rev_details()
+
 
 def main():
     message = """Hello Owner,
@@ -48,23 +64,20 @@ def main():
     try:
         inputVal = int(inputVal)
     except:
-        print("Please entter number either 1,2,3,4 or 5")
+        print("Please enter number either 1,2,3,4 or 5")
     if inputVal == 1:
         uploadFiles()
     elif inputVal == 2:
-        Yr_revenue()
+        yr_revenue()
     elif inputVal == 3:
-        Mo_revenue()
+        mo_revenue()
     elif inputVal == 4:
-        Total_revenue()
+        total_revenue()
     elif inputVal == 5:
         exit()
     else:
         print("Invalid Selection. Please try again")
-        main()
-        print("else")
-    print("else")
-    
-    
+        main()            
+
 if __name__ == "__main__":
     main()
